@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My IGCSE — free past papers, flashcards & revision tools</title>
+  <meta name="description" content="Free, open-source IGCSE revision: find past papers and mark schemes, make flashcards from your notes, quiz yourself and track your progress. No account needed.">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try {
+      const t = JSON.parse(localStorage.getItem('my-igcse:v1'))?.settings?.theme;
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#/">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--accent)"/><path d="M9 22V10h3v12zM15 22V10h3l4 7V10h3v12h-3l-4-7v7z" fill="#fff"/></svg>
+      <span>My IGCSE</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/papers" data-nav="papers">Past papers</a>
+      <a href="#/flashcards" data-nav="flashcards">Flashcards</a>
+      <a href="#/generate" data-nav="generate">Generate</a>
+      <a href="#/topics" data-nav="topics">Topics</a>
+      <a href="#/planner" data-nav="planner">Planner</a>
+      <a href="#/command-words" data-nav="command-words">Command words</a>
+    </nav>
+    <div class="topbar-tools">
+      <a class="pill timer-pill" href="#/planner" id="timer-pill" hidden title="Focus timer"></a>
+      <a class="icon-btn" href="#/settings" title="Settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main id="main" class="container" tabindex="-1">
+    <noscript><p class="card">My IGCSE needs JavaScript to run. Everything runs in your browser — nothing is sent anywhere.</p></noscript>
+  </main>
+
+  <footer class="footer container">
+    <p>
+      Free &amp; open source (MIT). No accounts, no tracking — your progress stays in this browser.
+      Past papers are © Cambridge University Press &amp; Assessment and are linked, not hosted.
+      <a href="https://github.com/trulysrbx/my-igcse" target="_blank" rel="noopener">Contribute on GitHub</a>
+    </p>
+  </footer>
+</body>
+</html>
