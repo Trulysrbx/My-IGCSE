@@ -170,7 +170,7 @@ function subjectPage(root, code, query) {
       const act = e.target.dataset.act;
       if (!act) return;
       update((st) => {
-        const rec = (st.papers[id] ||= {});
+        const rec = st.papers[id] || (st.papers[id] = {});
         if (act === 'done') {
           rec.done = e.target.checked;
           rec.date = Date.now();
