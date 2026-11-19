@@ -35,6 +35,18 @@ The site is plain HTML, CSS and JavaScript modules with no build step, so any st
 3. That's it. Railway detects `package.json` and runs `npm start`, and `server.js` listens on Railway's `PORT`. `railway.json` sets the start command and a `/healthz` health check.
 4. Under **Settings → Networking**, click **Generate Domain** to get a public URL.
 
+## Deploy on GitHub Pages (free)
+
+The site is fully static, so it also runs on GitHub Pages. The workflow in `.github/workflows/pages.yml` runs the tests and publishes the site on every push to `main`.
+
+1. In the repo, go to **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+3. Push to `main`, or run the workflow from the **Actions** tab. The site appears at `https://<your-username>.github.io/<repo-name>/`.
+
+This is useful if a school or office network blocks `*.up.railway.app` as "domain sharing".
+
+## About the server
+
 `server.js` is a ~100-line static server with zero dependencies. It only serves the public files (`index.html`, `css/`, `js/`, etc.), not tests or server code. It also adds security headers and ETags.
 
 ## How past papers work
