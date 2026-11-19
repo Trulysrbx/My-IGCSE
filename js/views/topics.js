@@ -61,7 +61,7 @@ export default function topics(root, [code]) {
         const i = b.dataset.i;
         const v = Number(b.dataset.v);
         update((st) => {
-          const r = (st.topics[code] ||= {});
+          const r = st.topics[code] || (st.topics[code] = {});
           if (r[i] === v) delete r[i];
           else r[i] = v;
         });

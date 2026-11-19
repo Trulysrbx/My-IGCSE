@@ -75,3 +75,4 @@ timer.subscribe((t) => {
 });
 
 render();
+document.documentElement.dataset.ready = '1';

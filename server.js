@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const PORT = Number(process.env.PORT) || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST; // unset = all interfaces, IPv4 and IPv6
 
 // Only these top-level paths are public; server code, tests and dotfiles are not served.
 const PUBLIC = new Set(['index.html', 'favicon.svg', 'manifest.webmanifest', 'css', 'js', 'LICENSE']);
@@ -32,10 +32,9 @@ const TYPES = {
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'no-referrer',
-  'X-Frame-Options': 'DENY',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
   'Content-Security-Policy':
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'",
 };
 
 function send(res, status, body, headers = {}) {
@@ -65,6 +64,7 @@ async function resolveFile(urlPath) {
 }
 
 const server = http.createServer(async (req, res) => {
+  res.on('finish', () => console.log(`${req.method} ${req.url} ${res.statusCode}`));
   if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'Method not allowed', { Allow: 'GET, HEAD' });
   if (req.url === '/healthz') return send(res, 200, 'ok');
 
@@ -87,7 +87,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`My IGCSE running at http://localhost:${PORT}`);
+  console.log(`My IGCSE listening on port ${PORT}`);
 });
 
 for (const sig of ['SIGTERM', 'SIGINT']) {

@@ -141,7 +141,7 @@ export function generateCards(text, opts = {}) {
       }
     }
     if (sentences) {
-      const parts = line.split(/(?<=[.!?])\s+(?=[A-Z])/);
+      const parts = line.replace(/([.!?])\s+(?=[A-Z])/g, '$1\n').split('\n');
       for (const p of parts) {
         const c = definerCard(p.trim());
         if (c) cards.push(c);
