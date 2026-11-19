@@ -9,7 +9,7 @@ npm start      # http://localhost:3000
 npm test       # run the unit tests
 ```
 
-There is no build step and there are no dependencies. Edit a file and refresh the browser.
+The site itself has no build step. Edit a file and refresh the browser. The only dev dependency is esbuild, which is used to regenerate the offline file `my-igcse.html`. Run `npm install` once, then `npm run build` before committing.
 
 ## Easy contributions
 

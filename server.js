@@ -14,7 +14,7 @@ const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST; // unset = all interfaces, IPv4 and IPv6
 
 // Only these top-level paths are public; server code, tests and dotfiles are not served.
-const PUBLIC = new Set(['index.html', 'favicon.svg', 'manifest.webmanifest', 'css', 'js', 'LICENSE']);
+const PUBLIC = new Set(['index.html', 'my-igcse.html', 'favicon.svg', 'manifest.webmanifest', 'css', 'js', 'LICENSE']);
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',

@@ -12,9 +12,10 @@
   <script>
     // Apply the saved theme before first paint to avoid a flash.
     try {
-      const t = JSON.parse(localStorage.getItem('my-igcse:v1'))?.settings?.theme;
-      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-    } catch {}
+      var saved = JSON.parse(localStorage.getItem('my-igcse:v1')) || {};
+      var t = saved.settings && saved.settings.theme;
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
   </script>
   <script type="module" src="js/main.js"></script>
 </head>
@@ -83,6 +84,7 @@
     <p>
       Free &amp; open source (MIT). No accounts, no tracking — your progress stays in this browser.
       Past papers are © Cambridge University Press &amp; Assessment and are linked, not hosted.
+      <a href="my-igcse.html" download>Download for offline use</a> ·
       <a href="https://github.com/trulysrbx/my-igcse" target="_blank" rel="noopener">Contribute on GitHub</a>
     </p>
   </footer>

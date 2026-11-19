@@ -2,6 +2,7 @@ import { html, toast, download, readFile, dayKey } from '../lib/util.js';
 import { get, update, exportAll, importAll, resetAll } from '../store.js';
 import { SOURCES } from '../data/sources.js';
 import { groupedSubjects } from '../data/subjects.js';
+import { IS_OFFLINE_FILE, PUBLIC_URL } from '../config.js';
 
 function applyTheme(theme) {
   if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
@@ -34,6 +35,16 @@ export default function settings(root) {
         <div class="field"><label for="source">Default past paper source</label>
           <select id="source">${SOURCES.map((x) => html`<option value="${x.id}" ${x.id === s.source ? 'selected' : ''}>${x.name}</option>`)}</select></div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Use it offline</h2>
+      ${IS_OFFLINE_FILE
+        ? html`<p>You're using the offline file — everything except opening past papers works without internet. Your data is saved in this browser; download a backup below now and then.</p>
+               <p class="muted">Online version: <a href="${PUBLIC_URL}" target="_blank" rel="noopener">${PUBLIC_URL}</a></p>`
+        : html`<p>Download the whole site as one file. Double-click it to open it in your browser — no internet, install or account needed. Flashcards, quizzes, the generator, topics, planner and command words all work offline.</p>
+               <p><a class="btn primary" href="my-igcse.html" download>Download my-igcse.html</a></p>
+               <p class="muted" style="margin:0">Progress isn't shared between the website and the file. Use "Download backup" here and "Restore backup" in the file to move it across.</p>`}
     </div>
 
     <div class="card">
