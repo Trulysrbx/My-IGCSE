@@ -16,17 +16,32 @@
 | 🗣️ **Command words** | What "describe", "explain", "evaluate" etc. actually ask for, with exam tips. Can be turned into a deck in one click. |
 | 💾 **Your data** | Backup and restore as a file, light and dark themes, and it works on phones. |
 
-## Run it locally
+## Use it offline: one file, no install
 
-You need [Node.js](https://nodejs.org/) 18 or newer. There are no dependencies to install.
+**[`my-igcse.html`](my-igcse.html)** is the whole site in a single file. Download it, put it anywhere (desktop, USB stick, phone), and double-click it to open it in your browser. You don't need a server, an install, an account or internet.
+
+* To download it, open the file on GitHub and click **Download raw file**. On the website, use the footer link or **Settings → Use it offline**.
+* Everything works offline except opening past paper PDFs, which come from other websites.
+* Progress is saved in that browser. The website and the file keep separate data, so use **Settings → Download backup / Restore backup** to move it between them.
+
+`my-igcse.html` is generated. Don't edit it. Change the source files, then run:
+
+```bash
+npm install
+npm run build
+```
+
+and commit the result. The GitHub Actions workflow fails if it is out of date.
+
+## Run your own local server
+
+You need [Node.js](https://nodejs.org/) 18 or newer.
 
 ```bash
 npm start
 ```
 
-Then open http://localhost:3000.
-
-The site is plain HTML, CSS and JavaScript modules with no build step, so any static file server works too (e.g. `python3 -m http.server`). Opening `index.html` straight from disk won't work, because browsers block JS modules on `file://`.
+Then open http://localhost:3000. The site is plain HTML, CSS and JavaScript modules, so any static file server works too (e.g. `python3 -m http.server`). Opening `index.html` straight from disk won't work, because browsers block JS modules on `file://`. Use `my-igcse.html` for that.
 
 ## Deploy on Railway
 
@@ -34,6 +49,18 @@ The site is plain HTML, CSS and JavaScript modules with no build step, so any st
 2. In Railway, choose **New Project → Deploy from GitHub repo** and pick this repository.
 3. That's it. Railway detects `package.json` and runs `npm start`, and `server.js` listens on Railway's `PORT`. `railway.json` sets the start command and a `/healthz` health check.
 4. Under **Settings → Networking**, click **Generate Domain** to get a public URL.
+
+## Deploy on GitHub Pages (free)
+
+The site is fully static, so it also runs on GitHub Pages. The workflow in `.github/workflows/pages.yml` runs the tests and publishes the site on every push to `main`.
+
+1. In the repo, go to **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+3. Push to `main`, or run the workflow from the **Actions** tab. The site appears at `https://<your-username>.github.io/<repo-name>/`.
+
+This is useful if a school or office network blocks `*.up.railway.app` as "domain sharing".
+
+## About the server
 
 `server.js` is a ~100-line static server with zero dependencies. It only serves the public files (`index.html`, `css/`, `js/`, etc.), not tests or server code. It also adds security headers and ETags.
 
@@ -49,10 +76,13 @@ My IGCSE **does not host any PDFs**. Cambridge papers are © Cambridge Universit
 
 ```
 index.html            app shell
+my-igcse.html         generated single-file offline build (npm run build)
 server.js             zero-dependency static server (Railway / any Node host)
+scripts/              build script for my-igcse.html
 css/style.css         all styles (light/dark via CSS variables)
 js/main.js            hash router
 js/store.js           localStorage persistence, backup/restore
+js/config.js          public URL used by share links from the offline file
 js/lib/               pure logic: srs, generator, quiz, papers, share, timer, util
 js/views/             one file per page
 js/data/              subjects & topics, starter decks, command words, paper sources

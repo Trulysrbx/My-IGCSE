@@ -3,6 +3,7 @@ import { get, update, makeCard } from '../store.js';
 import { deckStats, newSrs } from '../lib/srs.js';
 import { SUBJECTS } from '../data/subjects.js';
 import { encodeDeck } from '../lib/share.js';
+import { shareBase } from '../config.js';
 
 export default function deck(root, [id]) {
   const d = get().decks[id];
@@ -94,7 +95,7 @@ export default function deck(root, [id]) {
 
   $('#share').addEventListener('click', async () => {
     const code = await encodeDeck(get().decks[id]);
-    const url = `${location.origin}${location.pathname}#/share/${code}`;
+    const url = `${shareBase()}#/share/${code}`;
     try {
       await navigator.clipboard.writeText(url);
       toast(url.length > 8000 ? 'Link copied — it is long, a .json file may be easier to share' : 'Share link copied!');
